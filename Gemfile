@@ -11,11 +11,15 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma'
 gem 'bootstrap-sass'
+gem 'simple_form'
+gem 'redcarpet'
+gem 'pry-byebug'
 
 group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
 
@@ -23,4 +27,6 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
 end
