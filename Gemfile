@@ -14,6 +14,7 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'redcarpet'
 gem 'pry-byebug'
+gem 'devise'
 
 group :development, :test do
   gem 'web-console', '~> 2.0'

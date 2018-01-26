@@ -1,4 +1,6 @@
 class AchievementsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy, :update]
+  before_action :owners_only, only: [:edit, :update, :destroy]
 
   def index
     @achievements = Achievement.public_access
@@ -14,7 +16,6 @@ class AchievementsController < ApplicationController
   end
 
   def edit
-    @achievement = Achievement.find(params[:id])
   end
 
   def show
@@ -22,12 +23,11 @@ class AchievementsController < ApplicationController
   end
 
   def update
-    @achievement = Achievement.find(params[:id])
     @achievement.update_attributes(achievement_params) ? (redirect_to achievement_path(@achievement)) : (render :edit)
   end
 
   def destroy
-    Achievement.destroy(params[:id])
+    @achievement.destroy
     redirect_to achievements_path
   end
 
@@ -35,5 +35,10 @@ class AchievementsController < ApplicationController
 
   def achievement_params
     params.require(:achievement).permit(:title, :description, :privacy, :featured, :cover_image)
+  end
+
+  def owners_only
+    @achievement = Achievement.find(params[:id])
+    current_user != @achievement.user ? redirect_to(achievements_path) : (nil)
   end
 end
